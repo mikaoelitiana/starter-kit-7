@@ -31,4 +31,5 @@ dependencies[] = rules_admin
 dependencies[] = ctools
 dependencies[] = views
 dependencies[] = views_ui
+dependencies[] = webform
 files[] = default.profile
