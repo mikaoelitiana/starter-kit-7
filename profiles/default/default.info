@@ -32,4 +32,5 @@ dependencies[] = ctools
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = webform
+dependencies[] = ckeditor
 files[] = default.profile
