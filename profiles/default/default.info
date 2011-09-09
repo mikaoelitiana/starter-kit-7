@@ -33,4 +33,5 @@ dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = webform
 dependencies[] = ckeditor
+dependencies[] = boost
 files[] = default.profile
