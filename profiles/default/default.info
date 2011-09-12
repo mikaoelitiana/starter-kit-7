@@ -36,4 +36,5 @@ dependencies[] = ckeditor
 dependencies[] = boost
 dependencies[] = features
 dependencies[] = panels
+dependencies[] = admin_menu
 files[] = default.profile
