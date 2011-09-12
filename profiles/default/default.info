@@ -37,4 +37,5 @@ dependencies[] = boost
 dependencies[] = features
 dependencies[] = panels
 dependencies[] = admin_menu
+dependencies[] = devel
 files[] = default.profile
