@@ -35,4 +35,5 @@ dependencies[] = webform
 dependencies[] = ckeditor
 dependencies[] = boost
 dependencies[] = features
+dependencies[] = panels
 files[] = default.profile
