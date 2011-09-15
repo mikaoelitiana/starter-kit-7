@@ -35,15 +35,13 @@ function my_splash_page_alter(&$page){
   if(isset($_COOKIE["MySplash"]) && $_COOKIE["MySplash"] == 1) return true;
   drupal_add_css(drupal_get_path('module', 'my_splash') . "/css/ui-lightness/jquery-ui.custom.css", array('preprocess' => FALSE));
   drupal_add_js(create_box(), 'inline');
+  $msg = variable_get("my_splash_msg", "Bienvenu(e)");
+  $title = variable_get("my_splash_title", "Bienvenu(e)");
   $page['page_bottom'][] = array(
     '#weight' => -10, 
-    '#markup' => "<div id=\"dialog-message\" title=\"Download complete\">
+    '#markup' => "<div id=\"dialog-message\" title=\"$title\">
 	<p>
-		<span class=\"ui-icon ui-icon-circle-check\" style=\"float:left; margin:0 7px 50px 0;\"></span>
-		Your files have downloaded successfully into the My Downloads folder.
-	</p>
-	<p>
-		Currently using <b>36% of your storage space</b>.
+		$msg
 	</p>
 </div>",
   );
@@ -53,11 +51,15 @@ function my_splash_page_alter(&$page){
 
 
 function create_box(){
+  $width = variable_get("my_splash_width", "400");
+  $height = variable_get("my_splash_height", "250");
   $script = "jQuery(function() {
 		jQuery( \"#dialog:ui-dialog\" ).dialog( \"destroy\" );
 	
 		jQuery( \"#dialog-message\" ).dialog({
 			modal: true,
+            width:$width,
+            height:$height,
 			buttons: {
 				Ok: function() {
 					jQuery( this ).dialog( \"close\" );
@@ -69,3 +71,62 @@ function create_box(){
 }
 
 
+function my_splash_admin() {
+  $form = array();
+
+   $form['my_splash_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Box title'),
+    '#default_value' => variable_get('my_splash_title', 'Bienvenu(e)'),
+    '#size' => 80,
+    '#max' => 200,
+    '#required' => TRUE,
+  );
+   
+  $form['my_splash_msg'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message to display'),
+    '#default_value' => variable_get('my_splash_msg', 'Bienvenu(e)'),
+    '#cols' => 80,
+    '#rows' => 20,
+    '#description' => t("Message to display"),
+    '#required' => TRUE,
+    '#class'=>'tinymce',
+  );
+  
+  $form['my_splash_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Box width'),
+    '#default_value' => variable_get('my_splash_width', '400'),
+    '#size' => 3,
+    '#max' => 3,
+    '#required' => FALSE,
+  );
+  
+  $form['my_splash_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Box width'),
+    '#default_value' => variable_get('my_splash_height', '250'),
+    '#size' => 3,
+    '#max' => 3,
+    '#required' => FALSE,
+  );
+
+  return system_settings_form($form);
+}
+
+function my_splash_menu() {
+
+  $items = array();
+
+  $items['admin/settings/my_splash'] = array(
+    'title' => t('Splash message'),
+    'description' => t('Settings for Splash message'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('my_splash_admin'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+   );
+
+  return $items;
+}
