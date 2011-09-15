@@ -42,4 +42,5 @@ dependencies[] = gmap
 dependencies[] = gmap_macro_builder
 dependencies[] = location
 dependencies[] = gmap_location
+dependencies[] = my_splash
 files[] = default.profile
