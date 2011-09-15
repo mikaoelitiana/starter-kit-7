@@ -1,0 +1,71 @@
+<?php
+// $Id$ 
+
+/**
+ * @file 
+ */
+
+/**
+ * Implementation of hook_block() 
+ */
+function my_splash_block($op='list', $delta=0, $edit=array()) {
+  switch ($op) {
+    case 'list':
+
+    case 'view':
+
+    case 'configure':
+
+    case 'save':
+
+  }
+}
+
+/**
+ * Implementation of hook_help() 
+ */
+function my_splash_help($path, $arg) {
+
+}
+
+/**
+ * Implementation of hook_page_alter
+ */
+function my_splash_page_alter(&$page){
+  if(isset($_COOKIE["MySplash"]) && $_COOKIE["MySplash"] == 1) return true;
+  drupal_add_css(drupal_get_path('module', 'my_splash') . "/css/ui-lightness/jquery-ui.custom.css", array('preprocess' => FALSE));
+  drupal_add_js(create_box(), 'inline');
+  $page['page_bottom'][] = array(
+    '#weight' => -10, 
+    '#markup' => "<div id=\"dialog-message\" title=\"Download complete\">
+	<p>
+		<span class=\"ui-icon ui-icon-circle-check\" style=\"float:left; margin:0 7px 50px 0;\"></span>
+		Your files have downloaded successfully into the My Downloads folder.
+	</p>
+	<p>
+		Currently using <b>36% of your storage space</b>.
+	</p>
+</div>",
+  );
+  setcookie("MySplash", 1, time()+3600*24);
+}
+
+
+
+function create_box(){
+  $script = "jQuery(function() {
+		jQuery( \"#dialog:ui-dialog\" ).dialog( \"destroy\" );
+	
+		jQuery( \"#dialog-message\" ).dialog({
+			modal: true,
+			buttons: {
+				Ok: function() {
+					jQuery( this ).dialog( \"close\" );
+				}
+			}
+		});
+	});";
+  return $script;
+}
+
+

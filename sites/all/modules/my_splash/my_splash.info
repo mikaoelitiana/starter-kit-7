@@ -1,0 +1,7 @@
+; $Id$ 
+name = My splash
+description = Pops up a splash message on first visit
+version = 7.x-0.9
+core = 7.x
+scripts[] = js/jquery.min.js
+scripts[] = js/jquery-ui.custom.min.js
