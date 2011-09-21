@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Configuration Geolocalisation feature.
+ */
+
+include_once('configuration_geolocalisation.features.inc');
